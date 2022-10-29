@@ -1,12 +1,14 @@
 // Rock paper and scissors made with JavaScripts by Esielote for odinproject
 let options = ["piedra", "papel", "tijera"]; // Declaro las opciones disponibles
 
-function playerChoice(){
-    let index = prompt("Elige piedra papel o tijera: ").toLowerCase(); // Pido que opcion quiere jugar el usuario
+function getPlayerChoice(){
+    // Funcion para recibir el movimiento a jugar del usuario y lo retorna en minuscula
+    let index = prompt("Elige piedra papel o tijera: ").toLowerCase();
     return index
 }
 
-function randomComputerChoice(options) { // Hago que la computadora retorne un indice de las opciones
+function getRandomComputerChoice(options) {
+    // Funcion para que la computadora tenga su movimiento de juego
     let index = Math.floor(Math.random() * options.length);
     return index
 }
@@ -18,9 +20,9 @@ let draw = 0; // Declaro los empates
 for (i=0; i<5; i++) { // Mientras que el numero de partidas sea menor a 5, jugamos
     // Seteamos las opciones por vuelta 
     let computerChoice;
-    computerChoice = options[randomComputerChoice(options)]; // Hago que la computadora tenga su opcion
+    computerChoice = options[getRandomComputerChoice(options)]; // Hago que la computadora tenga su opcion
     let playerFinalChoice;
-    playerFinalChoice = playerChoice();
+    playerFinalChoice = getPlayerChoice();
     
     // declaramos victorias y derrotas con piedra 
     if ( playerFinalChoice == "piedra" && computerChoice == "tijera") {
