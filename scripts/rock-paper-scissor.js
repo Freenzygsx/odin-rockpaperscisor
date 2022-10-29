@@ -17,11 +17,13 @@ let playerWins = 0; // Declaro las victorias del jugador
 let computerWins = 0; // Declaro las victorias de la computadora
 let draw = 0; // Declaro los empates
 
+// Inicializo las variables de opciones
+let computerChoice;
+let playerFinalChoice;
+
 for (i=0; i<5; i++) { // Mientras que el numero de partidas sea menor a 5, jugamos
-    // Seteamos las opciones por vuelta 
-    let computerChoice;
-    computerChoice = options[getRandomComputerChoice(options)]; // Hago que la computadora tenga su opcion
-    let playerFinalChoice;
+    // Por cada vuelta nuestras variables cambiaran de movimiento
+    computerChoice = options[getRandomComputerChoice(options)];
     playerFinalChoice = getPlayerChoice();
     
     // declaramos victorias y derrotas con piedra 
