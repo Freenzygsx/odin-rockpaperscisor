@@ -1,12 +1,23 @@
 // Rock paper and scissors made with JavaScripts by Esielote for odinproject
 let options = ["piedra", "papel", "tijera"]; // Declaro las opciones disponibles
+// OLD GETPLAYERCHOICE()
+// function getPlayerChoice(){
+//     // Funcion para recibir el movimiento a jugar del usuario y lo retorna en minuscula
+//     let index = prompt("Elige piedra papel o tijera: ").toLowerCase();
+//     return index
+// }
 
-function getPlayerChoice(){
-    // Funcion para recibir el movimiento a jugar del usuario y lo retorna en minuscula
-    let index = prompt("Elige piedra papel o tijera: ").toLowerCase();
-    return index
-}
-
+// function getPlayerChoice(selectedbutton){
+//     return options[selectedbutton];
+// };
+const container = document.querySelector('#container');
+const content = document.createElement('div');
+const result = document.createElement('h1');
+result.textContent = "Resultados"
+const empate = document.createElement('div');
+const player = document.createElement('div');
+const pc = document.createElement('div');
+content.appendChild(result)
 function getRandomComputerChoice(options) {
     // Funcion para que la computadora tenga su movimiento de juego
     let index = Math.floor(Math.random() * options.length);
@@ -21,10 +32,19 @@ let draw = 0; // Declaro los empates
 let computerChoice;
 let playerFinalChoice;
 
-for (i=0; i<5; i++) { // Mientras que el numero de partidas sea menor a 5, jugamos
-    // Por cada vuelta nuestras variables cambiaran de movimiento
+
+function playRound(playerChoice){
+    if (playerWins + computerWins + draw === 5){
+        if (playerWins > computerWins){
+            return alert("Game ended, player wins");
+        } else if (computerWins > playerWins){
+            return alert("Game ended, computer wins");
+        } else if (computerWins == playerWins){
+            return alert("Game ended, draw")
+        }
+    };
     computerChoice = options[getRandomComputerChoice(options)];
-    playerFinalChoice = getPlayerChoice();
+    playerFinalChoice = playerChoice;
     
     // declaramos victorias y derrotas con piedra 
     if ( playerFinalChoice == "piedra" && computerChoice == "tijera") {
@@ -57,12 +77,27 @@ for (i=0; i<5; i++) { // Mientras que el numero de partidas sea menor a 5, jugam
         console.log("Empate");
         draw += 1;
     }
+
+    empate.textContent = `draw: ${draw}`
+    player.textContent = `player wins: ${playerWins}`
+    pc.textContent = `computer wins: ${computerWins}`
+
+    content.appendChild(empate)
+    content.appendChild(player)
+    content.appendChild(pc)
+    container.appendChild(content)
 }
 
-if (playerWins > computerWins){
-    console.log("Jugador ganador final");
-} else if (playerWins == computerWins){
-    console.log("Empataron a morir");
-} else {
-    console.log("Computadora ganador final");
+function getButtons(options){
+    for(let i = 0;i<options.length;i++){
+        let tempbtn = document.createElement('button');
+        tempbtn.classList.add(options[i])
+        tempbtn.textContent = options[i];
+        tempbtn.addEventListener('click', () => {
+            playRound(options[i])
+        })
+        container.appendChild(tempbtn);
+    };
 }
+
+getButtons(options);
